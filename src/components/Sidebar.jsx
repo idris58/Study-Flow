@@ -4,7 +4,7 @@ export default function Sidebar({ currentView, setCurrentView }) {
     return (
         <aside className="sidebar glass-panel">
             <div className="sidebar-logo">
-                <h2 className="heading-gradient">Productivity Planner</h2>
+                <h2 className="heading-gradient">Study Flow</h2>
             </div>
             <nav className="sidebar-nav">
                 <button

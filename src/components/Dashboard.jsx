@@ -79,7 +79,7 @@ export default function Dashboard() {
                 <header className="dashboard-header">
                     <div>
                         <h1 className="heading-gradient">Welcome back, Student!</h1>
-                        <p className="subtitle">Let's make today productive.</p>
+                        <p className="subtitle">Plan smart. Focus better. Achieve more.</p>
                     </div>
                     <div className="header-actions">
                         <button className="primary-btn glass-panel" onClick={() => setIsTaskModalOpen(true)}>
