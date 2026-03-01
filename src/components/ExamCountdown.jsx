@@ -1,6 +1,6 @@
 import './ExamCountdown.css'
 
-export default function ExamCountdown({ exams, onOpenModal, onDelete }) {
+export default function ExamCountdown({ exams, onOpenModal, onDelete, currentView }) {
     const calculateDaysLeft = (dateStr) => {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -44,9 +44,11 @@ export default function ExamCountdown({ exams, onOpenModal, onDelete }) {
                     })
                 )}
             </div>
-            <button className="add-exam-btn" onClick={onOpenModal}>
-                <span className="icon">+</span> Add Exam
-            </button>
+            {currentView !== 'dashboard' && (
+                <button className="add-exam-btn" onClick={onOpenModal}>
+                    <span className="icon">+</span> Add Exam
+                </button>
+            )}
         </section>
     )
 }

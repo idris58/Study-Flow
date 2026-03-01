@@ -102,6 +102,7 @@ export default function Dashboard() {
                                 exams={exams}
                                 onOpenModal={() => setIsExamModalOpen(true)}
                                 onDelete={deleteExam}
+                                currentView={currentView}
                             />
                             <PomodoroTimer />
                         </div>
@@ -114,6 +115,17 @@ export default function Dashboard() {
                             assignments={assignments}
                             onToggleStatus={toggleTaskStatus}
                             onDelete={deleteTask}
+                        />
+                    </div>
+                )}
+
+                {currentView === 'exams' && (
+                    <div className="full-width-column">
+                        <ExamCountdown
+                            exams={exams}
+                            onOpenModal={() => setIsExamModalOpen(true)}
+                            onDelete={deleteExam}
+                            currentView={currentView}
                         />
                     </div>
                 )}
