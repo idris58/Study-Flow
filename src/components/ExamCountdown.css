@@ -1,0 +1,120 @@
+.exam-countdown {
+    min-height: 250px;
+}
+
+.exams-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.exam-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.exam-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.exam-subject {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.exam-date {
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+}
+
+.countdown-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.75rem;
+    color: #F87171;
+    min-width: 60px;
+}
+
+.days-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    font-family: var(--font-heading);
+}
+
+.days-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: 0.25rem;
+}
+
+/* Delete Button Styles for Exam */
+.delete-exam-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    color: var(--status-danger);
+    opacity: 0;
+    font-size: 1.25rem;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    padding: 0;
+    box-shadow: var(--shadow-sm);
+    z-index: 2;
+}
+
+.exam-card:hover .delete-exam-btn {
+    opacity: 1;
+}
+
+.delete-exam-btn:hover {
+    background: var(--status-danger);
+    color: white;
+    border-color: var(--status-danger);
+    transform: scale(1.1);
+}
+
+.add-exam-btn {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-secondary);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.add-exam-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+}

@@ -1,0 +1,122 @@
+.pomodoro-timer {
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mode-toggle {
+    display: flex;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-full);
+    padding: 0.25rem;
+}
+
+.mode-btn {
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.mode-btn.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.timer-display {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem 0;
+}
+
+.timer-circle {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.time-left {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    color: var(--text-primary);
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+.progress-ring-bg {
+    stroke: rgba(255, 255, 255, 0.05);
+}
+
+.progress-ring-progress {
+    stroke: var(--accent-primary);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+}
+
+/* Pulsing effect when active */
+.timer-circle.active.work .progress-ring-progress {
+    filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.4));
+}
+
+.timer-circle.break .time-left {
+    color: var(--status-success);
+}
+
+.timer-circle.break .progress-ring-progress {
+    stroke: var(--status-success);
+}
+
+.timer-circle.active.break .progress-ring-progress {
+    filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.4));
+}
+
+.timer-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.control-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.play-btn {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    flex-grow: 1;
+    max-width: 150px;
+}
+
+.play-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.reset-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reset-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
