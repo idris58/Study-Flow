@@ -53,7 +53,7 @@ export default function AssignmentTracker({ assignments, onToggleStatus, onDelet
                                 <span className="due-date">{formatDueDate(assignment.dueDate)}</span>
                             </div>
                             <button
-                                className="icon-btn delete-btn"
+                                className="delete-btn"
                                 onClick={(e) => onDelete(e, assignment.id)}
                                 title="Delete Task"
                             >
