@@ -21,6 +21,7 @@ export default function Dashboard() {
 
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
     const [isExamModalOpen, setIsExamModalOpen] = useState(false)
+    const [currentView, setCurrentView] = useState('dashboard')
 
     // --- Handlers ---
     const handleAddTask = (e) => {
@@ -42,7 +43,7 @@ export default function Dashboard() {
         e.stopPropagation() // Prevent row click from triggering twice if overlapping
         setAssignments(assignments.map(a => {
             if (a.id === id) {
-                const nextStatus = a.status === 'pending' ? 'in-progress' : a.status === 'in-progress' ? 'completed' : 'pending';
+                const nextStatus = a.status === 'pending' || a.status === 'in-progress' ? 'completed' : 'pending';
                 return { ...a, status: nextStatus }
             }
             return a
@@ -73,7 +74,7 @@ export default function Dashboard() {
 
     return (
         <>
-            <Sidebar />
+            <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
             <main className="dashboard-content">
                 <header className="dashboard-header">
                     <div>
@@ -87,23 +88,41 @@ export default function Dashboard() {
                     </div>
                 </header>
 
-                <div className="dashboard-grid">
-                    <div className="main-column">
+                {currentView === 'dashboard' && (
+                    <div className="dashboard-grid">
+                        <div className="main-column">
+                            <AssignmentTracker
+                                assignments={assignments}
+                                onToggleStatus={toggleTaskStatus}
+                                onDelete={deleteTask}
+                            />
+                        </div>
+                        <div className="side-column">
+                            <ExamCountdown
+                                exams={exams}
+                                onOpenModal={() => setIsExamModalOpen(true)}
+                                onDelete={deleteExam}
+                            />
+                            <PomodoroTimer />
+                        </div>
+                    </div>
+                )}
+
+                {currentView === 'assignments' && (
+                    <div className="full-width-column">
                         <AssignmentTracker
                             assignments={assignments}
                             onToggleStatus={toggleTaskStatus}
                             onDelete={deleteTask}
                         />
                     </div>
-                    <div className="side-column">
-                        <ExamCountdown
-                            exams={exams}
-                            onOpenModal={() => setIsExamModalOpen(true)}
-                            onDelete={deleteExam}
-                        />
+                )}
+
+                {currentView === 'pomodoro' && (
+                    <div className="full-width-column centered-content" style={{ maxWidth: '600px', margin: '0 auto' }}>
                         <PomodoroTimer />
                     </div>
-                </div>
+                )}
             </main>
 
             {/* New Task Modal */}

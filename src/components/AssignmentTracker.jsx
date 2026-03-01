@@ -33,9 +33,17 @@ export default function AssignmentTracker({ assignments, onToggleStatus, onDelet
                         <div
                             key={assignment.id}
                             className={`assignment-card ${assignment.status}`}
-                            onClick={(e) => onToggleStatus(e, assignment.id)}
                         >
-                            <div className="assignment-status-indicator" data-status={assignment.status}></div>
+                            <button
+                                className={`custom-checkbox ${assignment.status === 'completed' ? 'checked' : ''}`}
+                                onClick={(e) => onToggleStatus(e, assignment.id)}
+                            >
+                                {assignment.status === 'completed' && (
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                )}
+                            </button>
                             <div className="assignment-info">
                                 <h3 className="assignment-title">{assignment.title}</h3>
                                 <p className="assignment-subject">{assignment.subject}</p>

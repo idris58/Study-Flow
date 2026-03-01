@@ -1,21 +1,30 @@
 import './Sidebar.css'
 
-export default function Sidebar() {
+export default function Sidebar({ currentView, setCurrentView }) {
     return (
         <aside className="sidebar glass-panel">
             <div className="sidebar-logo">
                 <h2 className="heading-gradient">Productivity Planner</h2>
             </div>
             <nav className="sidebar-nav">
-                <button className="nav-item active">
+                <button
+                    className={`nav-item ${currentView === 'dashboard' ? 'active' : ''}`}
+                    onClick={() => setCurrentView('dashboard')}
+                >
                     <span className="icon">📊</span>
                     <span className="label">Dashboard</span>
                 </button>
-                <button className="nav-item">
+                <button
+                    className={`nav-item ${currentView === 'assignments' ? 'active' : ''}`}
+                    onClick={() => setCurrentView('assignments')}
+                >
                     <span className="icon">📚</span>
                     <span className="label">Assignments</span>
                 </button>
-                <button className="nav-item">
+                <button
+                    className={`nav-item ${currentView === 'pomodoro' ? 'active' : ''}`}
+                    onClick={() => setCurrentView('pomodoro')}
+                >
                     <span className="icon">⏱️</span>
                     <span className="label">Pomodoro</span>
                 </button>
