@@ -51,14 +51,14 @@ export default function AssignmentTracker({ assignments, onToggleStatus, onDelet
                             <div className="assignment-meta">
                                 <span className={`priority-badge ${assignment.priority}`}>{assignment.priority}</span>
                                 <span className="due-date">{formatDueDate(assignment.dueDate)}</span>
-                                <button
-                                    className="icon-btn delete-btn"
-                                    onClick={(e) => onDelete(e, assignment.id)}
-                                    title="Delete Task"
-                                >
-                                    &times;
-                                </button>
                             </div>
+                            <button
+                                className="icon-btn delete-btn"
+                                onClick={(e) => onDelete(e, assignment.id)}
+                                title="Delete Task"
+                            >
+                                &times;
+                            </button>
                         </div>
                     ))
                 )}

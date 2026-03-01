@@ -29,7 +29,6 @@
     transition: all 0.2s ease;
     cursor: pointer;
     position: relative;
-    overflow: hidden;
 }
 
 .assignment-card:hover {
