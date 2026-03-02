@@ -171,3 +171,66 @@
     border-radius: var(--radius-sm);
     transition: all 0.2s;
 }
+
+/* Progress Bar Styles */
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    min-width: 120px;
+}
+
+.progress-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--status-success);
+    border-radius: var(--radius-full);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smart Priority Styles */
+.auto-priority {
+    border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.auto-priority-indicator {
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    animation: pulse 2s infinite;
+}
+
+.urgent-date {
+    color: #FCA5A5 !important;
+    font-weight: 700 !important;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

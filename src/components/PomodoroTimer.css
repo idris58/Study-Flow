@@ -117,6 +117,92 @@
 }
 
 .reset-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Settings and Analytics Styles */
+.settings-btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+}
+
+.pomodoro-settings-panel {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    animation: fadeIn 0.3s ease;
+}
+
+.pomodoro-settings-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.settings-row label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.settings-row input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
     color: var(--text-primary);
+    width: 80px;
+    text-align: center;
+}
+
+.save-settings-btn {
+    align-self: flex-end;
+    padding: 0.4rem 1rem;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: white;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-settings-btn:hover {
+    transform: translateY(-2px);
+}
+
+.daily-analytics {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.analytics-label {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.analytics-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    background: rgba(139, 92, 246, 0.15);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
 }

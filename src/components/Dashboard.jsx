@@ -3,6 +3,7 @@ import Sidebar from './Sidebar'
 import AssignmentTracker from './AssignmentTracker'
 import ExamCountdown from './ExamCountdown'
 import PomodoroTimer from './PomodoroTimer'
+import AnalyticsView from './AnalyticsView'
 import Modal from './Modal'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import './Dashboard.css'
@@ -61,7 +62,8 @@ export default function Dashboard() {
         const newExam = {
             id: Date.now(),
             subject: formData.get('subject'),
-            date: formData.get('date')
+            date: formData.get('date'),
+            syllabus: []
         }
         setExams([...exams, newExam].sort((a, b) => new Date(a.date) - new Date(b.date)))
         setIsExamModalOpen(false)
@@ -70,6 +72,10 @@ export default function Dashboard() {
     const deleteExam = (e, id) => {
         e.stopPropagation()
         setExams(exams.filter(e => e.id !== id))
+    }
+
+    const updateExam = (updatedExam) => {
+        setExams(exams.map(e => e.id === updatedExam.id ? updatedExam : e))
     }
 
     return (
@@ -102,6 +108,7 @@ export default function Dashboard() {
                                 exams={exams}
                                 onOpenModal={() => setIsExamModalOpen(true)}
                                 onDelete={deleteExam}
+                                onUpdate={updateExam}
                                 currentView={currentView}
                             />
                             <PomodoroTimer />
@@ -125,6 +132,7 @@ export default function Dashboard() {
                             exams={exams}
                             onOpenModal={() => setIsExamModalOpen(true)}
                             onDelete={deleteExam}
+                            onUpdate={updateExam}
                             currentView={currentView}
                         />
                     </div>
@@ -133,6 +141,12 @@ export default function Dashboard() {
                 {currentView === 'pomodoro' && (
                     <div className="full-width-column centered-content" style={{ maxWidth: '600px', margin: '0 auto' }}>
                         <PomodoroTimer />
+                    </div>
+                )}
+
+                {currentView === 'analytics' && (
+                    <div className="full-width-column">
+                        <AnalyticsView assignments={assignments} exams={exams} />
                     </div>
                 )}
             </main>
