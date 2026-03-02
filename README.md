@@ -1,16 +1,91 @@
-# React + Vite
+# Study Flow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Stay in Your Study Flow. Plan Smart. Achieve More.
 
-Currently, two official plugins are available:
+Study Flow is a modern productivity planner for school and university students. It helps you organize assignments, track exam deadlines, and run focused study sessions from one clean interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## React Compiler
+Managing classes, assignments, and exams can get messy fast. Study Flow combines planning and focus tools into a single web app so students can keep momentum and reduce deadline stress.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Current Features
 
-## Expanding the ESLint configuration
+- Assignment tracker
+- Create tasks with subject, due date, and priority
+- Mark tasks as pending or completed
+- Persistent local storage for saved tasks
+- Exam countdown
+- Add upcoming exams and view days remaining
+- Sorted exam timeline
+- Pomodoro timer
+- Focus/break modes (25/5 by default)
+- Start, pause, and reset controls
+- Responsive dashboard
+- Sidebar navigation for dashboard, assignments, exams, and timer views
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- React 19
+- Vite 7
+- CSS (component-scoped styles)
+- Browser Local Storage
+
+## Project Structure
+
+```text
+src/
+  components/
+    AssignmentTracker.jsx
+    Dashboard.jsx
+    ExamCountdown.jsx
+    Modal.jsx
+    PomodoroTimer.jsx
+    Sidebar.jsx
+  hooks/
+    useLocalStorage.js
+  App.jsx
+  main.jsx
+```
+
+## Getting Started
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Run development server
+
+```bash
+npm run dev
+```
+
+### 3. Build for production
+
+```bash
+npm run build
+```
+
+### 4. Preview production build
+
+```bash
+npm run preview
+```
+
+## Available Scripts
+
+- `npm run dev` - Start local dev server
+- `npm run build` - Create production build
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint checks
+
+## Notes
+
+- Data is currently stored in the browser (`localStorage`).
+- This project is currently a frontend-only MVP.
+- README reflects the current codebase state.
+
+## License
+
+This project is private for now.
