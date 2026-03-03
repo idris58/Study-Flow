@@ -4,6 +4,7 @@ import AssignmentTracker from './AssignmentTracker'
 import ExamCountdown from './ExamCountdown'
 import PomodoroTimer from './PomodoroTimer'
 import AnalyticsView from './AnalyticsView'
+import SettingsView from './SettingsView'
 import Modal from './Modal'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import './Dashboard.css'
@@ -19,6 +20,10 @@ export default function Dashboard() {
         { id: 1, subject: 'Mathematics', date: '2026-03-12' },
         { id: 2, subject: 'Physics', date: '2026-03-20' }
     ])
+
+    const [userProfile, setUserProfile] = useLocalStorage('user-profile', {
+        name: 'Student'
+    })
 
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
     const [isExamModalOpen, setIsExamModalOpen] = useState(false)
@@ -78,13 +83,17 @@ export default function Dashboard() {
         setExams(exams.map(e => e.id === updatedExam.id ? updatedExam : e))
     }
 
+    const handleClearAllData = () => {
+        window.localStorage.clear()
+    }
+
     return (
         <>
             <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
             <main className="dashboard-content">
                 <header className="dashboard-header">
                     <div>
-                        <h1 className="heading-gradient">Welcome back, Student!</h1>
+                        <h1 className="heading-gradient">Welcome back, {userProfile.name}!</h1>
                         <p className="subtitle">Plan smart. Focus better. Achieve more.</p>
                     </div>
                     <div className="header-actions">
@@ -147,6 +156,16 @@ export default function Dashboard() {
                 {currentView === 'analytics' && (
                     <div className="full-width-column">
                         <AnalyticsView assignments={assignments} exams={exams} />
+                    </div>
+                )}
+
+                {currentView === 'settings' && (
+                    <div className="full-width-column">
+                        <SettingsView
+                            userProfile={userProfile}
+                            onUpdateProfile={setUserProfile}
+                            onClearData={handleClearAllData}
+                        />
                     </div>
                 )}
             </main>

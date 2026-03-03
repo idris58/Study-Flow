@@ -44,7 +44,10 @@ export default function Sidebar({ currentView, setCurrentView }) {
                 </button>
             </nav>
             <div className="sidebar-footer">
-                <button className="nav-item">
+                <button
+                    className={`nav-item ${currentView === 'settings' ? 'active' : ''}`}
+                    onClick={() => setCurrentView('settings')}
+                >
                     <span className="icon">⚙️</span>
                     <span className="label">Settings</span>
                 </button>
