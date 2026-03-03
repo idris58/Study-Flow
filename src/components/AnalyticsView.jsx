@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { getLocalDateString } from '../utils/dateUtils';
 import './AnalyticsView.css';
 
 export default function AnalyticsView({ assignments, exams }) {
-    const [pomodoroAnalytics, setPomodoroAnalytics] = useState({ date: new Date().toISOString().split('T')[0], focusMinutes: 0 });
-
-    useEffect(() => {
-        // Read directly from local storage for cross-component sync
+    const [pomodoroAnalytics] = useState(() => {
+        const today = getLocalDateString();
         const stored = window.localStorage.getItem('pomodoro-analytics');
         if (stored) {
-            setPomodoroAnalytics(JSON.parse(stored));
+            const parsed = JSON.parse(stored);
+            if (parsed.date === today) return parsed;
         }
-    }, []);
+        return { date: today, focusMinutes: 0 };
+    });
 
     // Compute stats
     const totalAssignments = assignments.length;

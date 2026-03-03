@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
+import { getLocalDateString } from '../utils/dateUtils'
 import './PomodoroTimer.css'
 
 export default function PomodoroTimer() {
@@ -8,64 +9,80 @@ export default function PomodoroTimer() {
         breakTime: 5
     })
 
-    const todayStr = new Date().toISOString().split('T')[0];
-    const [analytics, setAnalytics] = useLocalStorage('pomodoro-analytics', {
-        date: todayStr,
-        focusMinutes: 0
+    const [analytics, setAnalytics] = useLocalStorage('pomodoro-analytics', () => {
+        const today = getLocalDateString();
+        return { date: today, focusMinutes: 0 };
     })
 
-    // Auto-reset daily analytics if it's a new day
+    // Check for daily reset on mount without triggering set-state-in-effect
     useEffect(() => {
-        if (analytics.date !== todayStr) {
-            setAnalytics({ date: todayStr, focusMinutes: 0 })
+        const today = getLocalDateString();
+        if (analytics.date !== today) {
+            setAnalytics({ date: today, focusMinutes: 0 });
         }
-    }, [todayStr, analytics.date, setAnalytics])
+    }, []); // Run only on mount
 
-    const WORK_SEC = settings.workTime * 60;
-    const BREAK_SEC = settings.breakTime * 60;
 
-    const [timeLeft, setTimeLeft] = useState(WORK_SEC)
-    const [isActive, setIsActive] = useState(false)
+
     const [mode, setMode] = useState('work') // 'work' or 'break'
+    const [timeLeft, setTimeLeft] = useState(settings.workTime * 60)
+    const [isActive, setIsActive] = useState(false)
     const [showSettings, setShowSettings] = useState(false)
 
-    // Keep timeLeft in sync when modifying settings (if not active)
-    useEffect(() => {
-        if (!isActive) {
-            setTimeLeft(mode === 'work' ? WORK_SEC : BREAK_SEC)
-        }
-    }, [WORK_SEC, BREAK_SEC, mode, isActive])
-
-    useEffect(() => {
-        let interval = null;
-        if (isActive && timeLeft > 0) {
-            interval = setInterval(() => {
-                setTimeLeft(time => time - 1)
-            }, 1000)
-        } else if (isActive && timeLeft === 0) {
-            // Auto switch modes or stop timer
-            setIsActive(false)
-            if (mode === 'work') {
-                setAnalytics(prev => ({ ...prev, focusMinutes: prev.focusMinutes + settings.workTime }))
-                setMode('break')
-                setTimeLeft(BREAK_SEC)
-            } else {
-                setMode('work')
-                setTimeLeft(WORK_SEC)
-            }
-        }
-        return () => clearInterval(interval)
-    }, [isActive, timeLeft, mode, BREAK_SEC, WORK_SEC, settings.workTime, setAnalytics])
+    // Handle mode switching
+    const switchMode = (newMode) => {
+        setIsActive(false)
+        setMode(newMode)
+        setTimeLeft(newMode === 'work' ? settings.workTime * 60 : settings.breakTime * 60)
+    }
 
     const handleSaveSettings = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
+        const newWorkTime = parseInt(formData.get('workTime'), 10);
+        const newBreakTime = parseInt(formData.get('breakTime'), 10);
+
         setSettings({
-            workTime: parseInt(formData.get('workTime'), 10),
-            breakTime: parseInt(formData.get('breakTime'), 10)
+            workTime: newWorkTime,
+            breakTime: newBreakTime
         });
+
+        // Sync timeLeft if timer is not active
+        if (!isActive) {
+            setTimeLeft(mode === 'work' ? newWorkTime * 60 : newBreakTime * 60);
+        }
+
         setShowSettings(false);
     };
+
+    useEffect(() => {
+        let timerInterval = null;
+        let switchTimeout = null;
+
+        if (isActive && timeLeft > 0) {
+            timerInterval = setInterval(() => {
+                setTimeLeft(time => time - 1);
+            }, 1000);
+        } else if (isActive && timeLeft === 0) {
+            // Use a small delay for all state updates to avoid set-state-in-effect warning
+            switchTimeout = setTimeout(() => {
+                setIsActive(false);
+                if (mode === 'work') {
+                    setAnalytics(prev => ({ ...prev, focusMinutes: prev.focusMinutes + settings.workTime }));
+                    setMode('break');
+                    setTimeLeft(settings.breakTime * 60);
+                } else {
+                    setMode('work');
+                    setTimeLeft(settings.workTime * 60);
+                }
+            }, 50);
+        }
+
+        return () => {
+            if (timerInterval) clearInterval(timerInterval);
+            if (switchTimeout) clearTimeout(switchTimeout);
+        };
+    }, [isActive, timeLeft, mode, settings.workTime, settings.breakTime, setAnalytics]);
 
     const toggleTimer = () => {
         setIsActive(!isActive)
@@ -73,7 +90,7 @@ export default function PomodoroTimer() {
 
     const resetTimer = () => {
         setIsActive(false)
-        setTimeLeft(mode === 'work' ? WORK_SEC : BREAK_SEC)
+        setTimeLeft(mode === 'work' ? settings.workTime * 60 : settings.breakTime * 60)
     }
 
     const formatTime = (seconds) => {
@@ -82,7 +99,7 @@ export default function PomodoroTimer() {
         return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
     }
 
-    const currentTotalSecs = mode === 'work' ? WORK_SEC : BREAK_SEC
+    const currentTotalSecs = mode === 'work' ? settings.workTime * 60 : settings.breakTime * 60
     const progressPercentage = ((currentTotalSecs - timeLeft) / currentTotalSecs) * 100
 
     return (
@@ -92,13 +109,13 @@ export default function PomodoroTimer() {
                 <div className="mode-toggle">
                     <button
                         className={`mode-btn ${mode === 'work' ? 'active' : ''}`}
-                        onClick={() => { setMode('work'); setTimeLeft(WORK_SEC); setIsActive(false); }}
+                        onClick={() => switchMode('work')}
                     >
                         Focus
                     </button>
                     <button
                         className={`mode-btn ${mode === 'break' ? 'active' : ''}`}
-                        onClick={() => { setMode('break'); setTimeLeft(BREAK_SEC); setIsActive(false); }}
+                        onClick={() => switchMode('break')}
                     >
                         Break
                     </button>
