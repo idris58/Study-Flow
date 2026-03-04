@@ -6,7 +6,7 @@
 
 .mode-toggle {
     display: flex;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--input-bg);
     border-radius: var(--radius-full);
     padding: 0.25rem;
 }
@@ -21,7 +21,7 @@
 }
 
 .mode-btn.active {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--hover-bg-strong);
     color: var(--text-primary);
 }
 
@@ -58,7 +58,7 @@
 }
 
 .progress-ring-bg {
-    stroke: rgba(255, 255, 255, 0.05);
+    stroke: var(--ring-bg);
 }
 
 .progress-ring-progress {
@@ -69,7 +69,7 @@
 
 /* Pulsing effect when active */
 .timer-circle.active.work .progress-ring-progress {
-    filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.4));
+    filter: drop-shadow(0 0 12px var(--accent-glow));
 }
 
 .timer-circle.break .time-left {
@@ -107,17 +107,17 @@
 
 .play-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px var(--hover-bg-strong);
 }
 
 .reset-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--hover-bg);
     color: var(--text-secondary);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
 }
 
 .reset-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--hover-bg-strong);
 }
 
 /* Settings and Analytics Styles */
@@ -127,11 +127,11 @@
 }
 
 .pomodoro-settings-panel {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--input-bg);
     border-radius: var(--radius-sm);
     padding: 1rem;
     margin-bottom: 1.5rem;
-    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border: 1px dashed var(--dashed-border);
     animation: fadeIn 0.3s ease;
 }
 
@@ -156,8 +156,8 @@
 }
 
 .settings-row input {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--input-bg-focus);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     padding: 0.5rem;
     color: var(--text-primary);
@@ -171,7 +171,7 @@
     background: var(--accent-gradient);
     border: none;
     border-radius: var(--radius-sm);
-    color: white;
+    color: var(--bg-tertiary);
     font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.2s;
@@ -188,7 +188,7 @@
     align-items: center;
     gap: 0.5rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--card-border);
 }
 
 .analytics-label {
@@ -202,7 +202,7 @@
     font-size: 1rem;
     font-weight: 700;
     color: var(--accent-secondary);
-    background: rgba(139, 92, 246, 0.15);
+    background: var(--active-nav-bg);
     padding: 0.25rem 0.75rem;
     border-radius: var(--radius-full);
 }

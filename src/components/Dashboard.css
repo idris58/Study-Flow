@@ -1,3 +1,11 @@
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background-color: var(--bg-primary);
+    transition: background-color 0.3s ease;
+}
+
 .dashboard-content {
     flex-grow: 1;
     display: flex;
@@ -35,7 +43,7 @@
     background: var(--accent-gradient);
     border-color: transparent;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 4px 12px var(--accent-glow);
 }
 
 .dashboard-grid {
@@ -74,6 +82,7 @@
 .widget-title {
     font-size: 1.25rem;
     font-weight: 600;
+    color: var(--text-primary);
 }
 
 @media (max-width: 1024px) {

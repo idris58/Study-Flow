@@ -1,26 +1,42 @@
 :root {
-  /* Core Deep Flow Theme Colors */
-  --bg-primary: #0A0F1D; /* Deep Navy */
-  --bg-secondary: #131A2F; /* Slightly Lighter Navy */
-  --bg-tertiary: #1D2640; /* Card Background */
-  
+  /* Core Dark Theme Colors */
+  --bg-primary: #0A0F1D;
+  --bg-secondary: #131A2F;
+  --bg-tertiary: #1D2640;
+
   /* Text Colors */
   --text-primary: #FFFFFF;
-  --text-secondary: #94A3B8; /* Muted Slate */
+  --text-secondary: #94A3B8;
   --text-tertiary: #64748B;
-  
+
   /* Accent Colors */
-  --accent-primary: #6366F1; /* Indigo */
-  --accent-secondary: #8B5CF6; /* Purple/Violet */
+  --accent-primary: #6366F1;
+  --accent-secondary: #8B5CF6;
   --accent-gradient: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
-  
+  --accent-glow: rgba(139, 92, 246, 0.4);
+
   /* Status Colors */
   --status-success: #10B981;
   --status-warning: #F59E0B;
   --status-danger: #EF4444;
+  --status-success-text: #6EE7B7;
+  --status-warning-text: #FCD34D;
+  --status-danger-text: #FCA5A5;
 
   /* UI Elements */
   --border-color: rgba(255, 255, 255, 0.08);
+  --panel-bg: rgba(19, 26, 47, 0.7);
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-bg-hover: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.05);
+  --input-bg: rgba(0, 0, 0, 0.2);
+  --input-bg-focus: rgba(0, 0, 0, 0.3);
+  --overlay-bg: rgba(10, 15, 29, 0.8);
+  --hover-bg: rgba(255, 255, 255, 0.05);
+  --hover-bg-strong: rgba(255, 255, 255, 0.1);
+  --active-nav-bg: rgba(139, 92, 246, 0.15);
+  --progress-track: rgba(255, 255, 255, 0.1);
+  --dashed-border: rgba(255, 255, 255, 0.1);
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
@@ -28,16 +44,61 @@
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-full: 9999px;
-  
+  --ring-bg: rgba(255, 255, 255, 0.05);
+  --date-picker-invert: invert(1);
+
   /* Typography */
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
+}
+
+/* Light Theme Overrides (Zen Study) */
+.theme-zen {
+  --bg-primary: #F9F7F5;
+  --bg-secondary: #F2EFEC;
+  --bg-tertiary: #FFFFFF;
+
+  --text-primary: #1C2122;
+  --text-secondary: #4A5568;
+  --text-tertiary: #718096;
+
+  --accent-primary: #2D5A3F;
+  --accent-secondary: #3D7D58;
+  --accent-gradient: linear-gradient(135deg, #2D5A3F 0%, #4A8C66 100%);
+  --accent-glow: rgba(45, 90, 63, 0.2);
+
+  --status-success: #276749;
+  --status-warning: #975A16;
+  --status-danger: #9B2C2C;
+  --status-success-text: #276749;
+  --status-warning-text: #975A16;
+  --status-danger-text: #9B2C2C;
+
+  --border-color: rgba(0, 0, 0, 0.08);
+  --panel-bg: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --card-bg-hover: #FDFBFA;
+  --card-border: rgba(0, 0, 0, 0.06);
+  --input-bg: #F7F5F3;
+  --input-bg-focus: #FFFFFF;
+  --overlay-bg: rgba(0, 0, 0, 0.4);
+  --hover-bg: rgba(0, 0, 0, 0.03);
+  --hover-bg-strong: rgba(0, 0, 0, 0.06);
+  --active-nav-bg: rgba(45, 90, 63, 0.08);
+  --progress-track: #E2E8F0;
+  --dashed-border: rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+  --ring-bg: #EDF2F7;
+  --date-picker-invert: none;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 body {
@@ -56,7 +117,12 @@ body {
   display: flex;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -69,7 +135,9 @@ button {
   background: none;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: var(--font-body);
 }
 
@@ -94,12 +162,17 @@ input, textarea, select {
 
 /* Utility Classes */
 .glass-panel {
-  background: rgba(19, 26, 47, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: var(--card-border);
 }
 
 .heading-gradient {

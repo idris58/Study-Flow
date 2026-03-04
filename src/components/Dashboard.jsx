@@ -9,7 +9,7 @@ import Modal from './Modal'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import './Dashboard.css'
 
-export default function Dashboard() {
+export default function Dashboard({ theme, setTheme }) {
     const [assignments, setAssignments] = useLocalStorage('assignments', [
         { id: 1, title: 'Calculus III Midterm Essay', subject: 'Math', dueDate: '2026-03-02', status: 'pending', priority: 'high' },
         { id: 2, title: 'React Project Setup', subject: 'Computer Science', dueDate: '2026-03-05', status: 'in-progress', priority: 'medium' },
@@ -91,28 +91,74 @@ export default function Dashboard() {
         <>
             <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
             <main className="dashboard-content">
-                <header className="dashboard-header">
-                    <div>
-                        <h1 className="heading-gradient">Welcome back, {userProfile.name}!</h1>
-                        <p className="subtitle">Plan smart. Focus better. Achieve more.</p>
-                    </div>
-                    <div className="header-actions">
-                        <button className="primary-btn glass-panel" onClick={() => setIsTaskModalOpen(true)}>
-                            + New Task
-                        </button>
-                    </div>
-                </header>
 
                 {currentView === 'dashboard' && (
-                    <div className="dashboard-grid">
-                        <div className="main-column">
+                    <>
+                        <header className="dashboard-header">
+                            <div>
+                                <h1 className="heading-gradient">Welcome back, {userProfile.name}!</h1>
+                                <p className="subtitle">Plan smart. Focus better. Achieve more.</p>
+                            </div>
+                        </header>
+                        <div className="dashboard-grid">
+                            <div className="main-column">
+                                <AssignmentTracker
+                                    assignments={assignments}
+                                    onToggleStatus={toggleTaskStatus}
+                                    onDelete={deleteTask}
+                                />
+                            </div>
+                            <div className="side-column">
+                                <ExamCountdown
+                                    exams={exams}
+                                    onOpenModal={() => setIsExamModalOpen(true)}
+                                    onDelete={deleteExam}
+                                    onUpdate={updateExam}
+                                    currentView={currentView}
+                                />
+                                <PomodoroTimer />
+                            </div>
+                        </div>
+                    </>
+                )}
+
+                {currentView === 'assignments' && (
+                    <>
+                        <header className="dashboard-header">
+                            <div>
+                                <h1 className="heading-gradient">Assignments</h1>
+                                <p className="subtitle">Track and manage your tasks.</p>
+                            </div>
+                            <div className="header-actions">
+                                <button className="primary-btn glass-panel" onClick={() => setIsTaskModalOpen(true)}>
+                                    + New Task
+                                </button>
+                            </div>
+                        </header>
+                        <div className="full-width-column">
                             <AssignmentTracker
                                 assignments={assignments}
                                 onToggleStatus={toggleTaskStatus}
                                 onDelete={deleteTask}
                             />
                         </div>
-                        <div className="side-column">
+                    </>
+                )}
+
+                {currentView === 'exams' && (
+                    <>
+                        <header className="dashboard-header">
+                            <div>
+                                <h1 className="heading-gradient">Exams</h1>
+                                <p className="subtitle">Countdown to your upcoming exams.</p>
+                            </div>
+                            <div className="header-actions">
+                                <button className="primary-btn glass-panel" onClick={() => setIsExamModalOpen(true)}>
+                                    + Add Exam
+                                </button>
+                            </div>
+                        </header>
+                        <div className="full-width-column">
                             <ExamCountdown
                                 exams={exams}
                                 onOpenModal={() => setIsExamModalOpen(true)}
@@ -120,37 +166,22 @@ export default function Dashboard() {
                                 onUpdate={updateExam}
                                 currentView={currentView}
                             />
-                            <PomodoroTimer />
                         </div>
-                    </div>
-                )}
-
-                {currentView === 'assignments' && (
-                    <div className="full-width-column">
-                        <AssignmentTracker
-                            assignments={assignments}
-                            onToggleStatus={toggleTaskStatus}
-                            onDelete={deleteTask}
-                        />
-                    </div>
-                )}
-
-                {currentView === 'exams' && (
-                    <div className="full-width-column">
-                        <ExamCountdown
-                            exams={exams}
-                            onOpenModal={() => setIsExamModalOpen(true)}
-                            onDelete={deleteExam}
-                            onUpdate={updateExam}
-                            currentView={currentView}
-                        />
-                    </div>
+                    </>
                 )}
 
                 {currentView === 'pomodoro' && (
-                    <div className="full-width-column centered-content" style={{ maxWidth: '600px', margin: '0 auto' }}>
-                        <PomodoroTimer />
-                    </div>
+                    <>
+                        <header className="dashboard-header">
+                            <div>
+                                <h1 className="heading-gradient">Focus Timer</h1>
+                                <p className="subtitle">Stay focused with Pomodoro technique.</p>
+                            </div>
+                        </header>
+                        <div className="full-width-column centered-content" style={{ maxWidth: '600px', margin: '0 auto' }}>
+                            <PomodoroTimer />
+                        </div>
+                    </>
                 )}
 
                 {currentView === 'analytics' && (
@@ -165,6 +196,8 @@ export default function Dashboard() {
                             userProfile={userProfile}
                             onUpdateProfile={setUserProfile}
                             onClearData={handleClearAllData}
+                            theme={theme}
+                            onThemeChange={setTheme}
                         />
                     </div>
                 )}

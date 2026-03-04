@@ -35,19 +35,19 @@
 }
 
 .nav-item:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--hover-bg);
     color: var(--text-primary);
 }
 
 .nav-item.active {
-    background: rgba(139, 92, 246, 0.15);
+    background: var(--active-nav-bg);
     /* Soft accent background */
     color: var(--accent-secondary);
     box-shadow: inset 3px 0 0 var(--accent-secondary);
 }
 
 .nav-item.active .icon {
-    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+    filter: drop-shadow(0 0 8px var(--accent-glow));
 }
 
 .icon {

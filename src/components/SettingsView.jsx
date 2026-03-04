@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './SettingsView.css';
 
-export default function SettingsView({ userProfile, onUpdateProfile, onClearData }) {
+export default function SettingsView({ userProfile, onUpdateProfile, onClearData, theme, onThemeChange }) {
     const [name, setName] = useState(userProfile.name);
 
     const handleSubmit = (e) => {
@@ -41,6 +41,28 @@ export default function SettingsView({ userProfile, onUpdateProfile, onClearData
                         </div>
                         <button type="submit" className="primary-btn glass-panel">Update Profile</button>
                     </form>
+                </section>
+
+                {/* Theme Section */}
+                <section className="glass-panel settings-section">
+                    <h3 className="section-title">🎨 Visual Theme</h3>
+                    <p className="settings-info">Choose an aesthetic that matches your focus level.</p>
+                    <div className="theme-options">
+                        <button
+                            className={`theme-chip deep-flow ${theme === 'dark' ? 'active' : ''}`}
+                            onClick={() => onThemeChange('dark')}
+                        >
+                            <span className="theme-preview"></span>
+                            Dark Mode
+                        </button>
+                        <button
+                            className={`theme-chip zen ${theme === 'light' ? 'active' : ''}`}
+                            onClick={() => onThemeChange('light')}
+                        >
+                            <span className="theme-preview"></span>
+                            Light Mode
+                        </button>
+                    </div>
                 </section>
 
                 {/* Data Management Section */}

@@ -24,6 +24,55 @@
     color: var(--text-primary);
 }
 
+.theme-options {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.theme-chip {
+    flex: 1;
+    min-width: 140px;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.theme-chip:hover {
+    background: var(--bg-tertiary);
+    transform: translateY(-2px);
+}
+
+.theme-chip.active {
+    border-color: var(--accent-primary);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.theme-preview {
+    width: 100%;
+    height: 60px;
+    border-radius: var(--radius-sm);
+    background: var(--accent-gradient);
+}
+
+.theme-chip.deep-flow .theme-preview {
+    background: linear-gradient(135deg, #0A0F1D 0%, #6366F1 100%);
+}
+
+.theme-chip.zen .theme-preview {
+    background: linear-gradient(135deg, #F9F7F5 0%, #2D5A3F 100%);
+    border: 1px solid var(--border-color);
+}
+
 .settings-form {
     display: flex;
     flex-direction: column;
@@ -42,14 +91,14 @@
 }
 
 .danger-btn {
-    background: rgba(248, 113, 113, 0.1) !important;
-    color: #F87171 !important;
-    border: 1px solid rgba(248, 113, 113, 0.2) !important;
+    background: rgba(239, 68, 68, 0.1) !important;
+    color: var(--status-danger) !important;
+    border: 1px solid rgba(239, 68, 68, 0.2) !important;
 }
 
 .danger-btn:hover {
-    background: rgba(248, 113, 113, 0.2) !important;
-    border-color: #F87171 !important;
+    background: var(--status-danger) !important;
+    color: var(--bg-tertiary) !important;
 }
 
 .about-info p {
