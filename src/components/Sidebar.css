@@ -67,6 +67,14 @@
         flex-direction: row;
         padding: 0.5rem;
         border-radius: var(--radius-lg);
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .sidebar::-webkit-scrollbar {
+        display: none;
     }
 
     .sidebar-logo,
@@ -88,6 +96,8 @@
         padding: 0.5rem;
         width: auto;
         border-radius: var(--radius-sm);
+        min-width: 68px;
+        flex-shrink: 0;
     }
 
     .nav-item.active {
@@ -101,5 +111,6 @@
 
     .nav-item .label {
         font-size: 0.7rem;
+        white-space: nowrap;
     }
 }

@@ -206,3 +206,57 @@
     padding: 0.25rem 0.75rem;
     border-radius: var(--radius-full);
 }
+
+@media (max-width: 768px) {
+    .pomodoro-timer {
+        min-height: auto;
+    }
+
+    .timer-circle {
+        width: 170px;
+        height: 170px;
+    }
+
+    .progress-ring {
+        width: 170px;
+        height: 170px;
+    }
+
+    .time-left {
+        font-size: 2.75rem;
+    }
+
+    .settings-row {
+        flex-direction: column;
+    }
+
+    .settings-row input {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .timer-circle {
+        width: 150px;
+        height: 150px;
+    }
+
+    .progress-ring {
+        width: 150px;
+        height: 150px;
+    }
+
+    .time-left {
+        font-size: 2.3rem;
+    }
+
+    .timer-controls {
+        flex-direction: column;
+    }
+
+    .play-btn {
+        max-width: none;
+        width: 100%;
+    }
+}

@@ -219,6 +219,36 @@
     font-weight: 700 !important;
 }
 
+@media (max-width: 768px) {
+    .assignment-card {
+        align-items: flex-start;
+        gap: 0.6rem;
+        padding: 1rem;
+        padding-right: 2rem;
+    }
+
+    .assignment-meta {
+        align-items: flex-start;
+    }
+
+    .delete-btn {
+        opacity: 1;
+        top: 8px;
+        right: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .assignment-title {
+        font-size: 1rem;
+    }
+
+    .assignment-subject,
+    .due-date {
+        font-size: 0.82rem;
+    }
+}
+
 @keyframes pulse {
     0% {
         transform: scale(1);

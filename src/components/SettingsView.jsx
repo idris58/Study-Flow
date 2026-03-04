@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './SettingsView.css';
 
 export default function SettingsView({ userProfile, onUpdateProfile, onClearData, theme, onThemeChange }) {
     const [name, setName] = useState(userProfile.name);
+
+    useEffect(() => {
+        setName(userProfile.name);
+    }, [userProfile.name]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -11,10 +15,16 @@ export default function SettingsView({ userProfile, onUpdateProfile, onClearData
     };
 
     const handleClearData = () => {
-        if (window.confirm('Are you sure you want to clear ALL study data? This cannot be undone.')) {
-            onClearData();
-            window.location.reload();
-        }
+        const warningAccepted = window.confirm(
+            'Warning: this will permanently delete all local Study Flow data, including assignments, exams, and timer analytics.'
+        );
+        if (!warningAccepted) return;
+
+        const confirmed = window.confirm('Final confirmation: reset all app data now?');
+        if (!confirmed) return;
+
+        onClearData();
+        alert('All app data has been reset.');
     };
 
     return (
@@ -25,9 +35,8 @@ export default function SettingsView({ userProfile, onUpdateProfile, onClearData
             </header>
 
             <div className="settings-grid">
-                {/* Profile Section */}
                 <section className="glass-panel settings-section">
-                    <h3 className="section-title">👤 Profile Personalization</h3>
+                    <h3 className="section-title">Profile Personalization</h3>
                     <form onSubmit={handleSubmit} className="settings-form">
                         <div className="form-group">
                             <label htmlFor="user-name">Your Display Name</label>
@@ -43,12 +52,12 @@ export default function SettingsView({ userProfile, onUpdateProfile, onClearData
                     </form>
                 </section>
 
-                {/* Appearance Section */}
                 <section className="glass-panel settings-section">
-                    <h3 className="section-title">✨ Appearance</h3>
+                    <h3 className="section-title">Appearance</h3>
                     <p className="settings-info">Customize how Study Flow looks on your device.</p>
                     <div className="appearance-switcher glass-panel">
                         <button
+                            type="button"
                             className={`appearance-option ${theme === 'light' ? 'active' : ''}`}
                             onClick={() => onThemeChange('light')}
                         >
@@ -66,6 +75,7 @@ export default function SettingsView({ userProfile, onUpdateProfile, onClearData
                             <span>Light</span>
                         </button>
                         <button
+                            type="button"
                             className={`appearance-option ${theme === 'dark' ? 'active' : ''}`}
                             onClick={() => onThemeChange('dark')}
                         >
@@ -75,6 +85,7 @@ export default function SettingsView({ userProfile, onUpdateProfile, onClearData
                             <span>Dark</span>
                         </button>
                         <button
+                            type="button"
                             className={`appearance-option ${theme === 'system' ? 'active' : ''}`}
                             onClick={() => onThemeChange('system')}
                         >
@@ -88,11 +99,11 @@ export default function SettingsView({ userProfile, onUpdateProfile, onClearData
                     </div>
                 </section>
 
-                {/* Data Management Section */}
                 <section className="glass-panel settings-section danger-zone">
-                    <h3 className="section-title">⚠️ Data Management</h3>
+                    <h3 className="section-title">Data Management</h3>
                     <p className="settings-info">Clear all local storage including assignments, exams, and focus analytics.</p>
                     <button
+                        type="button"
                         onClick={handleClearData}
                         className="secondary-btn danger-btn"
                     >
@@ -100,12 +111,10 @@ export default function SettingsView({ userProfile, onUpdateProfile, onClearData
                     </button>
                 </section>
 
-                {/* About Section */}
                 <section className="glass-panel settings-section">
-                    <h3 className="section-title">ℹ️ About Study Flow</h3>
+                    <h3 className="section-title">About Study Flow</h3>
                     <div className="about-info">
-                        <p><strong>Version:</strong> 1.2.0 (Advanced Phase UI)</p>
-                        <p><strong>Release Status:</strong> Production Ready</p>
+                        <p><strong>Version:</strong> 1.2.0</p>
                         <p className="mt-mini">Study Flow is designed to help students track their workload, prepare for exams, and maintain focus using the Pomodoro technique.</p>
                     </div>
                 </section>

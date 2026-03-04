@@ -10,19 +10,20 @@ import { useLocalStorage } from '../hooks/useLocalStorage'
 import './Dashboard.css'
 
 export default function Dashboard({ theme, setTheme }) {
+    const defaultAssignments = []
+    const defaultExams = []
+    const defaultUserProfile = { name: 'User' }
+
     const [assignments, setAssignments] = useLocalStorage('assignments', [
-        { id: 1, title: 'Calculus III Midterm Essay', subject: 'Math', dueDate: '2026-03-02', status: 'pending', priority: 'high' },
-        { id: 2, title: 'React Project Setup', subject: 'Computer Science', dueDate: '2026-03-05', status: 'in-progress', priority: 'medium' },
-        { id: 3, title: 'Read Chapter 4 & 5', subject: 'History', dueDate: '2026-03-10', status: 'completed', priority: 'low' }
+        ...defaultAssignments
     ])
 
     const [exams, setExams] = useLocalStorage('exams', [
-        { id: 1, subject: 'Mathematics', date: '2026-03-12' },
-        { id: 2, subject: 'Physics', date: '2026-03-20' }
+        ...defaultExams
     ])
 
     const [userProfile, setUserProfile] = useLocalStorage('user-profile', {
-        name: 'User'
+        ...defaultUserProfile
     })
 
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
@@ -84,7 +85,21 @@ export default function Dashboard({ theme, setTheme }) {
     }
 
     const handleClearAllData = () => {
-        window.localStorage.clear()
+        const managedKeys = [
+            'assignments',
+            'exams',
+            'user-profile',
+            'pomodoro-settings',
+            'pomodoro-analytics',
+            'app-theme'
+        ]
+
+        managedKeys.forEach((key) => window.localStorage.removeItem(key))
+        setAssignments(defaultAssignments)
+        setExams(defaultExams)
+        setUserProfile(defaultUserProfile)
+        setTheme('light')
+        setCurrentView('dashboard')
     }
 
     return (
