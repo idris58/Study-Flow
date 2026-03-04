@@ -119,15 +119,15 @@ export default function PomodoroTimer() {
                         title="Timer Settings"
                     >
                         <svg className="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M12 2v2"></path>
-                            <path d="M12 20v2"></path>
-                            <path d="m4.93 4.93 1.41 1.41"></path>
-                            <path d="m17.66 17.66 1.41 1.41"></path>
-                            <path d="M2 12h2"></path>
-                            <path d="M20 12h2"></path>
-                            <path d="m6.34 17.66-1.41 1.41"></path>
-                            <path d="m19.07 4.93-1.41 1.41"></path>
+                            <line x1="4" y1="6" x2="14" y2="6"></line>
+                            <line x1="18" y1="6" x2="20" y2="6"></line>
+                            <line x1="4" y1="12" x2="8" y2="12"></line>
+                            <line x1="12" y1="12" x2="20" y2="12"></line>
+                            <line x1="4" y1="18" x2="10" y2="18"></line>
+                            <line x1="14" y1="18" x2="20" y2="18"></line>
+                            <circle cx="16" cy="6" r="2"></circle>
+                            <circle cx="10" cy="12" r="2"></circle>
+                            <circle cx="12" cy="18" r="2"></circle>
                         </svg>
                     </button>
                 </div>

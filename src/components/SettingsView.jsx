@@ -1,26 +1,21 @@
 import { useState } from 'react';
+import Modal from './Modal';
 import './SettingsView.css';
 
 export default function SettingsView({ userProfile, onUpdateProfile, onClearData, theme, onThemeChange }) {
     const [name, setName] = useState(userProfile.name);
+    const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
+    const [isProfileSavedOpen, setIsProfileSavedOpen] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onUpdateProfile({ ...userProfile, name });
-        alert('Settings saved!');
+        setIsProfileSavedOpen(true);
     };
 
-    const handleClearData = () => {
-        const warningAccepted = window.confirm(
-            'Warning: this will permanently delete all local Study Flow data, including assignments, exams, and timer analytics.'
-        );
-        if (!warningAccepted) return;
-
-        const confirmed = window.confirm('Final confirmation: reset all app data now?');
-        if (!confirmed) return;
-
+    const handleConfirmReset = () => {
         onClearData();
-        alert('All app data has been reset.');
+        setIsResetConfirmOpen(false);
     };
 
     return (
@@ -100,7 +95,7 @@ export default function SettingsView({ userProfile, onUpdateProfile, onClearData
                     <p className="settings-info">Clear all local storage including assignments, exams, and focus analytics.</p>
                     <button
                         type="button"
-                        onClick={handleClearData}
+                        onClick={() => setIsResetConfirmOpen(true)}
                         className="secondary-btn danger-btn"
                     >
                         Reset All Application Data
@@ -115,6 +110,55 @@ export default function SettingsView({ userProfile, onUpdateProfile, onClearData
                     </div>
                 </section>
             </div>
+
+            <Modal
+                isOpen={isResetConfirmOpen}
+                onClose={() => setIsResetConfirmOpen(false)}
+                title="Reset Application Data"
+            >
+                <div className="reset-warning-content">
+                    <p className="reset-warning-text">
+                        This action will permanently delete all local Study Flow data, including assignments, exams, and timer analytics.
+                    </p>
+                    <div className="modal-actions">
+                        <button
+                            type="button"
+                            className="secondary-btn"
+                            onClick={() => setIsResetConfirmOpen(false)}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            className="submit-btn danger-confirm-btn"
+                            onClick={handleConfirmReset}
+                        >
+                            Yes, Reset Data
+                        </button>
+                    </div>
+                </div>
+            </Modal>
+
+            <Modal
+                isOpen={isProfileSavedOpen}
+                onClose={() => setIsProfileSavedOpen(false)}
+                title="Profile Updated"
+            >
+                <div className="settings-feedback-content">
+                    <p className="settings-feedback-text">
+                        Your display name has been updated successfully.
+                    </p>
+                    <div className="modal-actions">
+                        <button
+                            type="button"
+                            className="submit-btn"
+                            onClick={() => setIsProfileSavedOpen(false)}
+                        >
+                            OK
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }

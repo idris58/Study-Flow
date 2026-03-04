@@ -101,6 +101,34 @@
     color: var(--bg-tertiary) !important;
 }
 
+.reset-warning-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.reset-warning-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.settings-feedback-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.settings-feedback-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.danger-confirm-btn {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.28) !important;
+}
+
 .about-info p {
     font-size: 0.95rem;
     color: var(--text-secondary);

@@ -69,9 +69,9 @@ export default function AssignmentTracker({ assignments, onToggleStatus, onDelet
                                         {isAutoHigh && (
                                             <span className="auto-priority-indicator" title="Due soon!">
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <path d="M12 2s6 4.2 6 10a6 6 0 0 1-12 0c0-5.8 6-10 6-10z"></path>
-                                                    <path d="M12 10v4"></path>
-                                                    <circle cx="12" cy="17" r="0.7" fill="currentColor" stroke="none"></circle>
+                                                    <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                                    <path d="M12 9v4"></path>
+                                                    <path d="M12 17h.01"></path>
                                                 </svg>
                                             </span>
                                         )}
