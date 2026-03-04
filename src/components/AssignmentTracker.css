@@ -210,8 +210,17 @@
 
 .auto-priority-indicator {
     margin-left: 0.5rem;
-    font-size: 0.9rem;
+    width: 14px;
+    height: 14px;
+    display: inline-flex;
+    color: var(--status-danger);
+    vertical-align: -1px;
     animation: pulse 2s infinite;
+}
+
+.auto-priority-indicator svg {
+    width: 100%;
+    height: 100%;
 }
 
 .urgent-date {

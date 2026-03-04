@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './SettingsView.css';
 
 export default function SettingsView({ userProfile, onUpdateProfile, onClearData, theme, onThemeChange }) {
     const [name, setName] = useState(userProfile.name);
-
-    useEffect(() => {
-        setName(userProfile.name);
-    }, [userProfile.name]);
 
     const handleSubmit = (e) => {
         e.preventDefault();

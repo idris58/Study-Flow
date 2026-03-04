@@ -10,26 +10,22 @@ export default function PomodoroTimer() {
     })
 
     const [analytics, setAnalytics] = useLocalStorage('pomodoro-analytics', () => {
-        const today = getLocalDateString();
-        return { date: today, focusMinutes: 0 };
+        const today = getLocalDateString()
+        return { date: today, focusMinutes: 0 }
     })
 
-    // Check for daily reset on mount without triggering set-state-in-effect
     useEffect(() => {
-        const today = getLocalDateString();
+        const today = getLocalDateString()
         if (analytics.date !== today) {
-            setAnalytics({ date: today, focusMinutes: 0 });
+            setAnalytics({ date: today, focusMinutes: 0 })
         }
-    }, []); // Run only on mount
+    }, [analytics.date, setAnalytics])
 
-
-
-    const [mode, setMode] = useState('work') // 'work' or 'break'
+    const [mode, setMode] = useState('work')
     const [timeLeft, setTimeLeft] = useState(settings.workTime * 60)
     const [isActive, setIsActive] = useState(false)
     const [showSettings, setShowSettings] = useState(false)
 
-    // Handle mode switching
     const switchMode = (newMode) => {
         setIsActive(false)
         setMode(newMode)
@@ -37,52 +33,50 @@ export default function PomodoroTimer() {
     }
 
     const handleSaveSettings = (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const newWorkTime = parseInt(formData.get('workTime'), 10);
-        const newBreakTime = parseInt(formData.get('breakTime'), 10);
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        const newWorkTime = parseInt(formData.get('workTime'), 10)
+        const newBreakTime = parseInt(formData.get('breakTime'), 10)
 
         setSettings({
             workTime: newWorkTime,
             breakTime: newBreakTime
-        });
+        })
 
-        // Sync timeLeft if timer is not active
         if (!isActive) {
-            setTimeLeft(mode === 'work' ? newWorkTime * 60 : newBreakTime * 60);
+            setTimeLeft(mode === 'work' ? newWorkTime * 60 : newBreakTime * 60)
         }
 
-        setShowSettings(false);
-    };
+        setShowSettings(false)
+    }
 
     useEffect(() => {
-        let timerInterval = null;
-        let switchTimeout = null;
+        let timerInterval = null
+        let switchTimeout = null
 
         if (isActive && timeLeft > 0) {
             timerInterval = setInterval(() => {
-                setTimeLeft(time => time - 1);
-            }, 1000);
+                setTimeLeft((time) => time - 1)
+            }, 1000)
         } else if (isActive && timeLeft === 0) {
-            // Use a small delay for all state updates to avoid set-state-in-effect warning
             switchTimeout = setTimeout(() => {
-                setIsActive(false);
+                setIsActive(false)
                 if (mode === 'work') {
-                    setAnalytics(prev => ({ ...prev, focusMinutes: prev.focusMinutes + settings.workTime }));
-                    setMode('break');
-                    setTimeLeft(settings.breakTime * 60);
+                    setAnalytics((prev) => ({ ...prev, focusMinutes: prev.focusMinutes + settings.workTime }))
+                    setMode('break')
+                    setTimeLeft(settings.breakTime * 60)
                 } else {
-                    setMode('work');
-                    setTimeLeft(settings.workTime * 60);
+                    setMode('work')
+                    setTimeLeft(settings.workTime * 60)
                 }
-            }, 50);
+            }, 50)
         }
 
         return () => {
-            if (timerInterval) clearInterval(timerInterval);
-            if (switchTimeout) clearTimeout(switchTimeout);
-        };
-    }, [isActive, timeLeft, mode, settings.workTime, settings.breakTime, setAnalytics]);
+            if (timerInterval) clearInterval(timerInterval)
+            if (switchTimeout) clearTimeout(switchTimeout)
+        }
+    }, [isActive, timeLeft, mode, settings.workTime, settings.breakTime, setAnalytics])
 
     const toggleTimer = () => {
         setIsActive(!isActive)
@@ -124,7 +118,17 @@ export default function PomodoroTimer() {
                         onClick={() => setShowSettings(!showSettings)}
                         title="Timer Settings"
                     >
-                        ⚙️
+                        <svg className="settings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M12 2v2"></path>
+                            <path d="M12 20v2"></path>
+                            <path d="m4.93 4.93 1.41 1.41"></path>
+                            <path d="m17.66 17.66 1.41 1.41"></path>
+                            <path d="M2 12h2"></path>
+                            <path d="M20 12h2"></path>
+                            <path d="m6.34 17.66-1.41 1.41"></path>
+                            <path d="m19.07 4.93-1.41 1.41"></path>
+                        </svg>
                     </button>
                 </div>
             </header>

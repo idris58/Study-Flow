@@ -132,7 +132,7 @@
   background: var(--accent-gradient);
   border: none;
   border-radius: var(--radius-md);
-  color: var(--bg-tertiary);
+  color: var(--on-accent);
   font-weight: 600;
   box-shadow: 0 4px 12px var(--accent-glow);
   transition: all 0.2s;

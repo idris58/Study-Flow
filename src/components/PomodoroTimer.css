@@ -123,7 +123,14 @@
 /* Settings and Analytics Styles */
 .settings-btn {
     padding: 0.25rem 0.5rem;
-    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-icon {
+    width: 16px;
+    height: 16px;
 }
 
 .pomodoro-settings-panel {
@@ -171,7 +178,7 @@
     background: var(--accent-gradient);
     border: none;
     border-radius: var(--radius-sm);
-    color: var(--bg-tertiary);
+    color: var(--on-accent);
     font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.2s;

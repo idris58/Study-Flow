@@ -2,7 +2,7 @@
     display: flex;
     min-height: 100vh;
     width: 100%;
-    background-color: var(--bg-primary);
+    background-color: transparent;
     transition: background-color 0.3s ease;
 }
 
@@ -36,13 +36,16 @@
 
 .primary-btn {
     color: var(--text-primary);
+    background: var(--card-bg);
     padding: 0.75rem 1.5rem;
     font-weight: 600;
+    border: 1px solid var(--border-color);
     transition: all 0.2s ease;
 }
 
 .primary-btn:hover {
     background: var(--accent-gradient);
+    color: var(--on-accent);
     border-color: transparent;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px var(--accent-glow);
@@ -75,6 +78,15 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.widget-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-color);
 }
 
 .widget-header {

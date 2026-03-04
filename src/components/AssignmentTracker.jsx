@@ -10,7 +10,6 @@ export default function AssignmentTracker({ assignments, onToggleStatus, onDelet
         return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     }
 
-    // Helper to format date relative to today
     const formatDueDate = (dateStr) => {
         const diffDays = getRawDaysLeft(dateStr);
 
@@ -24,9 +23,8 @@ export default function AssignmentTracker({ assignments, onToggleStatus, onDelet
         return dueDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
     }
 
-    // Calculate progress
     const totalAssignments = assignments.length;
-    const completedAssignments = assignments.filter(a => a.status === 'completed').length;
+    const completedAssignments = assignments.filter((a) => a.status === 'completed').length;
     const progressPercentage = totalAssignments === 0 ? 0 : Math.round((completedAssignments / totalAssignments) * 100);
 
     return (
@@ -45,9 +43,8 @@ export default function AssignmentTracker({ assignments, onToggleStatus, onDelet
                 {assignments.length === 0 ? (
                     <div className="empty-state">No assignments currently. You're all caught up!</div>
                 ) : (
-                    assignments.map(assignment => {
+                    assignments.map((assignment) => {
                         const daysLeft = getRawDaysLeft(assignment.dueDate);
-                        // Smart Auto-priority: Override to High if due in 2 days or less and not completed
                         const isAutoHigh = daysLeft <= 2 && daysLeft >= 0 && assignment.status !== 'completed';
                         const displayPriority = isAutoHigh ? 'high' : assignment.priority;
 
@@ -69,7 +66,15 @@ export default function AssignmentTracker({ assignments, onToggleStatus, onDelet
                                 <div className="assignment-info">
                                     <h3 className="assignment-title">
                                         {assignment.title}
-                                        {isAutoHigh && <span className="auto-priority-indicator" title="Due soon!">🔥</span>}
+                                        {isAutoHigh && (
+                                            <span className="auto-priority-indicator" title="Due soon!">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M12 2s6 4.2 6 10a6 6 0 0 1-12 0c0-5.8 6-10 6-10z"></path>
+                                                    <path d="M12 10v4"></path>
+                                                    <circle cx="12" cy="17" r="0.7" fill="currentColor" stroke="none"></circle>
+                                                </svg>
+                                            </span>
+                                        )}
                                     </h3>
                                     <p className="assignment-subject">{assignment.subject}</p>
                                 </div>
