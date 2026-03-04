@@ -71,8 +71,13 @@
 
 @media (max-width: 768px) {
     .sidebar {
-        width: 100%;
+        width: auto;
         height: auto;
+        position: fixed;
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: calc(0.5rem + env(safe-area-inset-bottom));
+        z-index: 100;
         flex-direction: row;
         padding: 0.5rem;
         border-radius: var(--radius-lg);

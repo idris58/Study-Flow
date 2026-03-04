@@ -102,6 +102,28 @@ export default function Dashboard({ theme, setTheme }) {
         setCurrentView('dashboard')
     }
 
+    const renderMobileSettingsButton = () => (
+        <button
+            type="button"
+            className="mobile-settings-btn"
+            onClick={() => setCurrentView('settings')}
+            aria-label="Open settings"
+            title="Settings"
+        >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="4" y1="6" x2="14" y2="6"></line>
+                <line x1="18" y1="6" x2="20" y2="6"></line>
+                <line x1="4" y1="12" x2="8" y2="12"></line>
+                <line x1="12" y1="12" x2="20" y2="12"></line>
+                <line x1="4" y1="18" x2="10" y2="18"></line>
+                <line x1="14" y1="18" x2="20" y2="18"></line>
+                <circle cx="16" cy="6" r="2"></circle>
+                <circle cx="10" cy="12" r="2"></circle>
+                <circle cx="12" cy="18" r="2"></circle>
+            </svg>
+        </button>
+    )
+
     return (
         <>
             <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
@@ -113,6 +135,9 @@ export default function Dashboard({ theme, setTheme }) {
                             <div>
                                 <h1 className="heading-gradient">Welcome back, {userProfile.name}!</h1>
                                 <p className="subtitle">Plan smart. Focus better. Achieve more.</p>
+                            </div>
+                            <div className="header-actions mobile-settings-wrap">
+                                {renderMobileSettingsButton()}
                             </div>
                         </header>
                         <div className="dashboard-grid">
@@ -126,10 +151,8 @@ export default function Dashboard({ theme, setTheme }) {
                             <div className="side-column">
                                 <ExamCountdown
                                     exams={exams}
-                                    onOpenModal={() => setIsExamModalOpen(true)}
                                     onDelete={deleteExam}
                                     onUpdate={updateExam}
-                                    currentView={currentView}
                                 />
                                 <PomodoroTimer />
                             </div>
@@ -145,11 +168,17 @@ export default function Dashboard({ theme, setTheme }) {
                                 <p className="subtitle">Track and manage your tasks.</p>
                             </div>
                             <div className="header-actions">
-                                <button className="primary-btn glass-panel" onClick={() => setIsTaskModalOpen(true)}>
+                                {renderMobileSettingsButton()}
+                                <button className="primary-btn glass-panel desktop-only-cta" onClick={() => setIsTaskModalOpen(true)}>
                                     + New Task
                                 </button>
                             </div>
                         </header>
+                        <div className="mobile-page-cta">
+                            <button className="primary-btn glass-panel" onClick={() => setIsTaskModalOpen(true)}>
+                                + New Task
+                            </button>
+                        </div>
                         <div className="full-width-column">
                             <AssignmentTracker
                                 assignments={assignments}
@@ -168,18 +197,22 @@ export default function Dashboard({ theme, setTheme }) {
                                 <p className="subtitle">Countdown to your upcoming exams.</p>
                             </div>
                             <div className="header-actions">
-                                <button className="primary-btn glass-panel" onClick={() => setIsExamModalOpen(true)}>
+                                {renderMobileSettingsButton()}
+                                <button className="primary-btn glass-panel desktop-only-cta" onClick={() => setIsExamModalOpen(true)}>
                                     + Add Exam
                                 </button>
                             </div>
                         </header>
+                        <div className="mobile-page-cta">
+                            <button className="primary-btn glass-panel" onClick={() => setIsExamModalOpen(true)}>
+                                + Add Exam
+                            </button>
+                        </div>
                         <div className="full-width-column">
                             <ExamCountdown
                                 exams={exams}
-                                onOpenModal={() => setIsExamModalOpen(true)}
                                 onDelete={deleteExam}
                                 onUpdate={updateExam}
-                                currentView={currentView}
                             />
                         </div>
                     </>
@@ -192,17 +225,31 @@ export default function Dashboard({ theme, setTheme }) {
                                 <h1 className="heading-gradient">Focus Timer</h1>
                                 <p className="subtitle">Stay focused with Pomodoro technique.</p>
                             </div>
+                            <div className="header-actions mobile-settings-wrap">
+                                {renderMobileSettingsButton()}
+                            </div>
                         </header>
-                        <div className="full-width-column centered-content" style={{ maxWidth: '600px', margin: '0 auto' }}>
+                        <div className="full-width-column centered-content pomodoro-view">
                             <PomodoroTimer />
                         </div>
                     </>
                 )}
 
                 {currentView === 'analytics' && (
-                    <div className="full-width-column">
-                        <AnalyticsView assignments={assignments} exams={exams} />
-                    </div>
+                    <>
+                        <header className="dashboard-header">
+                            <div>
+                                <h1 className="heading-gradient">Analytics</h1>
+                                <p className="subtitle">Track your overall progress at a glance.</p>
+                            </div>
+                            <div className="header-actions mobile-settings-wrap">
+                                {renderMobileSettingsButton()}
+                            </div>
+                        </header>
+                        <div className="full-width-column">
+                            <AnalyticsView assignments={assignments} exams={exams} showHeader={false} />
+                        </div>
+                    </>
                 )}
 
                 {currentView === 'settings' && (

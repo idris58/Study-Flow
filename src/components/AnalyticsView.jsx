@@ -6,7 +6,7 @@ function StatIcon({ children, className = '' }) {
     return <div className={`stat-icon ${className}`}>{children}</div>;
 }
 
-export default function AnalyticsView({ assignments, exams }) {
+export default function AnalyticsView({ assignments, exams, showHeader = true }) {
     const [pomodoroAnalytics] = useState(() => {
         const today = getLocalDateString();
         const stored = window.localStorage.getItem('pomodoro-analytics');
@@ -32,10 +32,12 @@ export default function AnalyticsView({ assignments, exams }) {
 
     return (
         <div className="analytics-container">
-            <header className="analytics-header">
-                <h2 className="heading-gradient">Performance Analytics</h2>
-                <p className="subtitle">Overview of your study habits and progress.</p>
-            </header>
+            {showHeader && (
+                <header className="analytics-header">
+                    <h2 className="heading-gradient">Performance Analytics</h2>
+                    <p className="subtitle">Overview of your study habits and progress.</p>
+                </header>
+            )}
 
             <div className="analytics-grid">
                 <section className="glass-panel stat-card hero-stat">

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './ExamCountdown.css'
 
-export default function ExamCountdown({ exams, onOpenModal, onDelete, onUpdate, currentView }) {
+export default function ExamCountdown({ exams, onDelete, onUpdate }) {
     const [expandedId, setExpandedId] = useState(null)
     const calculateDaysLeft = (dateStr) => {
         const today = new Date();
@@ -129,11 +129,6 @@ export default function ExamCountdown({ exams, onOpenModal, onDelete, onUpdate, 
                     })
                 )}
             </div>
-            {currentView !== 'dashboard' && (
-                <button className="add-exam-btn" onClick={onOpenModal}>
-                    <span className="icon">+</span> Add Exam
-                </button>
-            )}
         </section>
     )
 }

@@ -153,7 +153,7 @@ export default function PomodoroTimer() {
 
             <div className="timer-display">
                 <div className={`timer-circle ${isActive ? 'active' : ''} ${mode}`}>
-                    <svg className="progress-ring" width="200" height="200">
+                    <svg className="progress-ring" viewBox="0 0 200 200" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
                         <circle
                             className="progress-ring-bg"
                             strokeWidth="8"
