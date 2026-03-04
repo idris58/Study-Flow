@@ -22,7 +22,7 @@ export default function Dashboard({ theme, setTheme }) {
     ])
 
     const [userProfile, setUserProfile] = useLocalStorage('user-profile', {
-        name: 'Student'
+        name: 'User'
     })
 
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
